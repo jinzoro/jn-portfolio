@@ -1,0 +1,290 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
+
+const skills = [
+  "React", "Next.js", "TypeScript", "Node.js", "GraphQL", "PostgreSQL",
+  "Figma", "Three.js", "AWS", "Docker", "Python", "Tailwind CSS",
+  "Framer Motion", "Redis", "Prisma", "Vercel", "WebGL", "GSAP",
+];
+
+const stats = [
+  { value: 6, suffix: "+", label: "Years of experience" },
+  { value: 48, suffix: "+", label: "Projects shipped" },
+  { value: 12, suffix: "", label: "Happy clients" },
+  { value: 99, suffix: "%", label: "Satisfaction rate" },
+];
+
+function CountUp({ value, suffix }: { value: number; suffix: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const hasStarted = useRef(false);
+
+  useEffect(() => {
+    if (!isInView || hasStarted.current || !ref.current) return;
+    hasStarted.current = true;
+    const start = performance.now();
+    const duration = 1800;
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      if (ref.current) {
+        ref.current.textContent = Math.round(eased * value) + suffix;
+      }
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [isInView, value, suffix]);
+
+  return (
+    <span ref={ref} style={{ display: "inline" }}>
+      0{suffix}
+    </span>
+  );
+}
+
+const bioLines = [
+  "I'm a full-stack engineer with a designer's eye — someone who obsesses",
+  "over both the architecture of a system and the feel of an interaction.",
+  "I've shipped products used by millions, led design systems teams, and",
+  "helped early-stage startups find their visual identity.",
+];
+
+export default function About() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+  const imageRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: imageRef,
+    offset: ["start end", "end start"],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
+
+  return (
+    <section
+      id="about"
+      ref={sectionRef}
+      style={{
+        padding: "clamp(80px, 12vw, 160px) clamp(24px, 6vw, 96px)",
+        position: "relative",
+      }}
+    >
+      {/* Section tag */}
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.6 }}
+        style={{ marginBottom: 64 }}
+      >
+        <span className="section-tag">About me</span>
+      </motion.div>
+
+      {/* Two-column */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 460px), 1fr))",
+          gap: "clamp(40px, 6vw, 96px)",
+          alignItems: "center",
+        }}
+      >
+        {/* Image column */}
+        <motion.div
+          ref={imageRef}
+          initial={{ opacity: 0, x: -40 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          style={{ position: "relative" }}
+        >
+          <div
+            style={{
+              position: "relative",
+              overflow: "hidden",
+              clipPath:
+                "polygon(0 4%, 96% 0, 100% 96%, 4% 100%)",
+              borderRadius: 4,
+              aspectRatio: "4/5",
+              maxWidth: 480,
+            }}
+          >
+            <motion.div style={{ y: imageY, height: "112%" }}>
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  background:
+                    "linear-gradient(135deg, #111 0%, #1a1a1a 40%, #0f0f0f 100%)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "var(--color-fg-muted)",
+                  fontSize: "0.8rem",
+                  letterSpacing: "0.15em",
+                  textTransform: "uppercase",
+                  fontFamily: "var(--font-body)",
+                }}
+              >
+                {/* Replace with next/image */}
+                <span>Your Photo Here</span>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Accent square */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: -16,
+              right: -16,
+              width: 80,
+              height: 80,
+              background: "var(--color-accent)",
+              borderRadius: 4,
+              zIndex: -1,
+            }}
+          />
+        </motion.div>
+
+        {/* Text column */}
+        <div>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "clamp(2.2rem, 5vw, 4rem)",
+              letterSpacing: "-0.03em",
+              lineHeight: 1.05,
+              color: "var(--color-fg)",
+              marginBottom: 32,
+            }}
+          >
+            I build things
+            <br />
+            <span style={{ color: "var(--color-accent)" }}>people love</span>
+            <br />
+            to use.
+          </h2>
+
+          {/* Bio lines — staggered reveal */}
+          <div style={{ marginBottom: 48 }}>
+            {bioLines.map((line, i) => (
+              <div key={i} style={{ overflow: "hidden" }}>
+                <motion.p
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{
+                    duration: 0.65,
+                    ease: [0.16, 1, 0.3, 1],
+                    delay: 0.3 + i * 0.08,
+                  }}
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontWeight: 300,
+                    fontSize: "clamp(0.9rem, 1.5vw, 1.05rem)",
+                    lineHeight: 1.75,
+                    color: "var(--color-fg-muted)",
+                  }}
+                >
+                  {line}
+                </motion.p>
+              </div>
+            ))}
+          </div>
+
+          {/* Stats */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              gap: 24,
+              marginBottom: 48,
+            }}
+          >
+            {stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{
+                  duration: 0.6,
+                  ease: [0.16, 1, 0.3, 1],
+                  delay: 0.5 + i * 0.1,
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 800,
+                    fontSize: "clamp(2rem, 4vw, 3rem)",
+                    letterSpacing: "-0.03em",
+                    color: "var(--color-accent)",
+                    lineHeight: 1,
+                    marginBottom: 4,
+                  }}
+                >
+                  <CountUp value={stat.value} suffix={stat.suffix} />
+                </div>
+                <p
+                  style={{
+                    fontSize: "0.8rem",
+                    color: "var(--color-fg-muted)",
+                    fontFamily: "var(--font-body)",
+                    letterSpacing: "0.02em",
+                  }}
+                >
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Skills marquee */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : {}}
+        transition={{ duration: 0.8, delay: 0.6 }}
+        style={{
+          marginTop: "clamp(64px, 10vw, 120px)",
+          overflow: "hidden",
+          borderTop: "1px solid var(--color-border)",
+          borderBottom: "1px solid var(--color-border)",
+          padding: "20px 0",
+        }}
+      >
+        <div className="marquee-track">
+          {[...skills, ...skills].map((skill, i) => (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 40,
+                paddingRight: 40,
+                whiteSpace: "nowrap",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 600,
+                  fontSize: "0.85rem",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: "var(--color-fg-muted)",
+                  transition: "color 0.2s ease",
+                }}
+              >
+                {skill}
+              </span>
+              <span style={{ color: "var(--color-accent)", fontSize: 6 }}>◆</span>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+    </section>
+  );
+}
