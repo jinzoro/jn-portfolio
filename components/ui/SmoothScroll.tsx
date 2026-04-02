@@ -1,37 +1,44 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import Lenis from "lenis";
-import { useAnimationFrame } from "framer-motion";
+import { useEffect } from "react";
 
 export default function SmoothScroll({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const lenisRef = useRef<Lenis | null>(null);
-
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
+    let rafId: number;
 
-    lenisRef.current = lenis;
+    const init = async () => {
+      const { default: Lenis } = await import("lenis");
 
-    // Expose lenis globally for anchor link usage
-    (window as unknown as Record<string, unknown>).lenis = lenis;
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+      });
+
+      // Expose globally so Navbar / Footer scroll-to functions can use it
+      (window as unknown as Record<string, unknown>).lenis = lenis;
+
+      const tick = (time: number) => {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(tick);
+      };
+
+      rafId = requestAnimationFrame(tick);
+
+      return lenis;
+    };
+
+    const lenisPromise = init();
 
     return () => {
-      lenis.destroy();
-      lenisRef.current = null;
+      cancelAnimationFrame(rafId);
+      lenisPromise.then((lenis) => lenis?.destroy());
     };
   }, []);
-
-  useAnimationFrame((time) => {
-    lenisRef.current?.raf(time);
-  });
 
   return <>{children}</>;
 }
