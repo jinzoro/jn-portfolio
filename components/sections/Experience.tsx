@@ -5,40 +5,50 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 
 const experiences = [
   {
-    company: "Vercel",
-    role: "Senior Software Engineer",
-    period: "2022 — Present",
-    location: "San Francisco, CA",
+    company: "CONVOTIS",
+    role: "Systems Engineer",
+    period: "Jun 2024 — Present",
+    location: "Remote / Germany",
     bullets: [
-      "Led the redesign of the deployment preview system, reducing TTFB by 34% for 1M+ daily previews.",
-      "Built a real-time build log streaming pipeline handling 200K concurrent connections using WebSockets and Redis Streams.",
-      "Mentored 4 junior engineers; established frontend architecture standards adopted org-wide.",
+      "Lead virtualization infrastructure for CONVOTISCLOUD, the company's proprietary cloud platform — full ownership of Proxmox VE clusters and backup systems.",
+      "Assisted in datacenter deployment in Germany: capacity planning, network architecture, and high-availability configuration.",
+      "Designed and administered Proxmox Backup Server (PBS) integrated across all PVE clusters, ensuring a robust and redundant backup strategy.",
     ],
-    accent: "#ccff00",
+    accent: "#00d4ff",
   },
   {
-    company: "Linear",
-    role: "Frontend Engineer",
-    period: "2020 — 2022",
-    location: "Remote",
+    company: "LEYTON",
+    role: "IT Analyst",
+    period: "Nov 2022 — Jun 2024",
+    location: "Casablanca",
     bullets: [
-      "Owned the keyboard shortcut system and command palette — features cited in 70% of user NPS responses.",
-      "Reduced bundle size by 41% via code splitting, lazy loading, and tree-shaking unused icon sets.",
-      "Shipped the dark mode redesign in under 3 weeks, maintaining zero regressions across 800+ components.",
+      "Implemented a centralized Active Directory system on Windows Server, streamlining user management for 1,000+ users across the organization.",
+      "Managed deployment and integration of WorkspaceOne, SentinelOne, Magicinfo, and VPN MFA across multiple sites.",
+      "Delivered worldwide technical support, resolving complex incidents to maintain operational efficiency.",
     ],
     accent: "#6366f1",
   },
   {
-    company: "Stripe",
-    role: "Software Engineer",
-    period: "2018 — 2020",
-    location: "San Francisco, CA",
+    company: "BMCI — DIGIFI",
+    role: "IT Consultant",
+    period: "Feb 2022 — Nov 2022",
+    location: "Casablanca",
     bullets: [
-      "Built Stripe Radar's rule builder UI — a visual no-code editor processing fraud rules for 100M+ daily transactions.",
-      "Shipped the Dashboard's first mobile-responsive redesign, increasing mobile session time by 2.3×.",
-      "Contributed to the public Ruby and Python SDK, resolving 40+ community-reported issues.",
+      "Executed detailed test cases and conducted manual and regression testing as a Junior Software Tester.",
+      "Identified and documented defects, improving overall software quality and delivery processes.",
     ],
-    accent: "#00d4ff",
+    accent: "#3b82f6",
+  },
+  {
+    company: "CONCENTRIX",
+    role: "Technical Adviser L2",
+    period: "Oct 2018 — Nov 2019",
+    location: "Casablanca",
+    bullets: [
+      "Resolved complex technical cases related to optical fiber issues that had eluded front-line resolution.",
+      "Played a key role in network management, ensuring seamless functionality and improved performance metrics.",
+    ],
+    accent: "#10b981",
   },
 ];
 
@@ -54,16 +64,9 @@ function TimelineCard({
   const isLeft = index % 2 === 0;
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 48px 1fr",
-        gap: 0,
-        position: "relative",
-      }}
-    >
+    <div className="timeline-card-grid">
       {/* Left card */}
-      <div style={{ padding: "0 32px 0 0" }}>
+      <div className={isLeft ? "timeline-left-col" : "timeline-empty-col"} style={{ padding: "0 32px 0 0" }}>
         {isLeft && (
           <motion.div
             ref={ref}
@@ -146,6 +149,7 @@ function TimelineCard({
 
       {/* Center dot */}
       <div
+        className="timeline-center-col"
         style={{
           display: "flex",
           flexDirection: "column",
@@ -173,7 +177,7 @@ function TimelineCard({
       </div>
 
       {/* Right card */}
-      <div style={{ padding: "0 0 0 32px" }}>
+      <div className={!isLeft ? "timeline-right-col" : "timeline-empty-col"} style={{ padding: "0 0 0 32px" }}>
         {!isLeft && (
           <motion.div
             ref={ref}
@@ -309,6 +313,7 @@ export default function Experience() {
       <div ref={timelineRef} style={{ position: "relative" }}>
         {/* Animated vertical line */}
         <div
+          className="timeline-line-wrapper"
           style={{
             position: "absolute",
             left: "50%",

@@ -11,7 +11,7 @@ const HeroScene = dynamic(() => import("@/components/three/HeroScene"), {
   loading: () => null,
 });
 
-const headline = ["Crafting", "digital", "experiences", "that", "matter."];
+const headline = ["Cloud", "Infrastructure", "Engineer."];
 
 const charVariants = {
   hidden: { opacity: 0, y: 80 },
@@ -123,7 +123,7 @@ export default function Hero() {
           style={{
             fontFamily: "var(--font-display)",
             fontWeight: 800,
-            fontSize: "clamp(3rem, 8.5vw, 8rem)",
+            fontSize: "clamp(2rem, 5.5vw, 5.5rem)",
             letterSpacing: "-0.03em",
             lineHeight: 1,
             color: "var(--color-fg)",
@@ -173,8 +173,8 @@ export default function Hero() {
               transform: "translateY(20px)",
             }}
           >
-            Full-stack engineer & creative technologist. I build products that
-            live at the intersection of meticulous design and robust engineering.
+            Systems Engineer specializing in Linux, cloud platforms (AWS, Azure,
+            Alibaba), and virtualization infrastructure. I build resilient systems that scale.
           </p>
         </div>
 

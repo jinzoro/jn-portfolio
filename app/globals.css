@@ -7,8 +7,8 @@
   --color-bg-card: #111111;
   --color-fg: #f0eee8;
   --color-fg-muted: #8a8880;
-  --color-accent: #ccff00;
-  --color-accent-dim: rgba(204, 255, 0, 0.12);
+  --color-accent: #00d4ff;
+  --color-accent-dim: rgba(0, 212, 255, 0.12);
   --color-border: rgba(240, 238, 232, 0.08);
 
   /* Fonts */
@@ -227,4 +227,39 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   backdrop-filter: blur(8px);
+}
+
+/* ─── Experience timeline responsive ────────────────── */
+.timeline-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 48px 1fr;
+  gap: 0;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .timeline-card-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .timeline-center-col { display: none; }
+  .timeline-left-col,
+  .timeline-right-col {
+    padding: 0 !important;
+  }
+  .timeline-empty-col { display: none; }
+  .timeline-line-wrapper { display: none; }
+}
+
+/* ─── Touch devices — restore native cursor ─────────── */
+@media (hover: none) {
+  * { cursor: auto !important; }
+}
+
+/* ─── General mobile tweaks ─────────────────────────── */
+@media (max-width: 640px) {
+  .hero-cta {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
 }

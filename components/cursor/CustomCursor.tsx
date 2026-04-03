@@ -12,7 +12,7 @@ export default function CustomCursor() {
   const cursorY = useMotionValue(-100);
 
   const springConfig = { stiffness: 400, damping: 40, mass: 0.5 };
-  const ringConfig = { stiffness: 150, damping: 20, mass: 0.8 };
+  const ringConfig = { stiffness: 500, damping: 40, mass: 0.3 };
 
   const dotX = useSpring(cursorX, springConfig);
   const dotY = useSpring(cursorY, springConfig);
@@ -86,7 +86,7 @@ export default function CustomCursor() {
             width: 6,
             height: 6,
             borderRadius: "50%",
-            background: "#ccff00",
+            background: "#00d4ff",
           }}
         />
       </motion.div>
@@ -106,7 +106,7 @@ export default function CustomCursor() {
           opacity: isHidden ? 0 : 1,
           scale: isPointer ? 1.8 : 1,
           backgroundColor: isPointer
-            ? "rgba(204,255,0,0.08)"
+            ? "rgba(0,212,255,0.08)"
             : "transparent",
         }}
         transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
@@ -116,7 +116,7 @@ export default function CustomCursor() {
             width: 36,
             height: 36,
             borderRadius: "50%",
-            border: "1.5px solid rgba(204,255,0,0.6)",
+            border: "1.5px solid rgba(0,212,255,0.6)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",

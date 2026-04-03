@@ -56,7 +56,7 @@ function ParticleField() {
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
-      uColor: { value: new THREE.Color("#ccff00") },
+      uColor: { value: new THREE.Color("#00d4ff") },
     }),
     []
   );
@@ -126,7 +126,7 @@ function GridLines() {
   return (
     <lineSegments ref={lineRef} geometry={geometry}>
       <lineBasicMaterial
-        color="#ccff00"
+        color="#00d4ff"
         transparent
         opacity={0.025}
       />

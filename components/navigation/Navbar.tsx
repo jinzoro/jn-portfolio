@@ -132,7 +132,7 @@ export default function Navbar() {
           }}
           data-cursor="pointer"
         >
-          YN<span style={{ color: "var(--color-accent)" }}>.</span>
+          IZ<span style={{ color: "var(--color-accent)" }}>.</span>
         </a>
 
         {/* Desktop links */}

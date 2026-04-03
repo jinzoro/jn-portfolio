@@ -3,18 +3,16 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
-  Code2,
   Server,
-  Palette,
   Cloud,
   Layers,
-  Database,
   Cpu,
   Globe,
   GitBranch,
   Zap,
   Box,
   Monitor,
+  Shield,
 } from "lucide-react";
 
 interface SkillCard {
@@ -27,89 +25,74 @@ interface SkillCard {
 
 const cards: SkillCard[] = [
   {
-    icon: <Code2 size={28} />,
-    title: "React & Next.js",
-    description: "App Router, RSC, streaming SSR, edge runtime, ISR",
-    span: "normal",
-    accent: "#61dafb",
-  },
-  {
-    icon: <Layers size={28} />,
-    title: "TypeScript",
-    description: "Strict mode, generic utilities, conditional types, Zod",
-    span: "normal",
-    accent: "#3178c6",
-  },
-  {
-    icon: <Globe size={28} />,
-    title: "Three.js / WebGL",
-    description: "Custom shaders, GLSL, particle systems, post-processing FX",
-    span: "wide",
-    accent: "#ccff00",
-  },
-  {
     icon: <Server size={28} />,
-    title: "Node.js & Go",
-    description:
-      "High-throughput APIs, microservices, gRPC, event-driven architecture",
+    title: "Linux & Windows Server",
+    description: "Debian, Ubuntu, RHEL family, Windows Server — administration, hardening, and automation",
     span: "normal",
     accent: "#68a063",
   },
   {
-    icon: <Database size={28} />,
-    title: "Databases",
-    description: "PostgreSQL, Redis, MongoDB, vector DBs — schema design & query optimization",
-    span: "tall",
-    accent: "#336791",
-  },
-  {
-    icon: <Palette size={28} />,
-    title: "Figma & Design",
-    description: "Design systems, component libraries, interaction prototyping",
-    span: "normal",
-    accent: "#f24e1e",
-  },
-  {
     icon: <Cloud size={28} />,
-    title: "Cloud & DevOps",
-    description: "AWS, GCP, Vercel, Docker, Kubernetes, CI/CD pipelines",
-    span: "normal",
+    title: "Cloud Platforms",
+    description: "AWS, Azure, Alibaba Cloud — infrastructure provisioning, IAM, networking, and cost management",
+    span: "wide",
     accent: "#ff9900",
   },
   {
-    icon: <Zap size={28} />,
-    title: "Animation",
-    description: "Framer Motion, GSAP, CSS animations, Lenis smooth scroll",
-    span: "normal",
-    accent: "#ccff00",
+    icon: <Cpu size={28} />,
+    title: "Proxmox Virtualization",
+    description: "Proxmox VE cluster design, Proxmox Backup Server (PBS), Mail Gateway, and Datacenter Manager — full lifecycle ownership",
+    span: "tall",
+    accent: "#e65800",
   },
   {
-    icon: <Cpu size={28} />,
-    title: "AI / ML Integration",
-    description: "OpenAI, Claude API, LangChain, vector search, RAG pipelines",
-    span: "wide",
-    accent: "#a78bfa",
+    icon: <Monitor size={28} />,
+    title: "Monitoring & Observability",
+    description: "Zabbix and Grafana for infrastructure health dashboards, alerting, and proactive incident detection",
+    span: "normal",
+    accent: "#f97316",
+  },
+  {
+    icon: <Globe size={28} />,
+    title: "Networking & Load Balancing",
+    description: "Nginx, Apache, HAProxy, Traefik, PowerDNS, VPN MFA — traffic routing and high-availability setups",
+    span: "normal",
+    accent: "#00d4ff",
+  },
+  {
+    icon: <Layers size={28} />,
+    title: "Identity & Access",
+    description: "Keycloak SSO, Active Directory — user lifecycle, group policies, and zero-trust access control",
+    span: "normal",
+    accent: "#6366f1",
   },
   {
     icon: <Box size={28} />,
-    title: "State & Data",
-    description: "Zustand, React Query, tRPC, GraphQL, Prisma ORM",
-    span: "normal",
-    accent: "#e36700",
+    title: "IT Service Management",
+    description: "JIRA, ServiceNow, Zammad, Confluence, OpenProject, BookStack — ticket workflows and documentation",
+    span: "wide",
+    accent: "#3b82f6",
   },
   {
     icon: <GitBranch size={28} />,
-    title: "Git & Collaboration",
-    description: "GitHub Actions, trunk-based dev, semantic versioning",
+    title: "Automation & DevOps",
+    description: "GitLab CI/CD, PowerShell scripting, Git — pipeline automation and infrastructure-as-code practices",
     span: "normal",
     accent: "#f05032",
   },
   {
-    icon: <Monitor size={28} />,
-    title: "Testing & QA",
-    description: "Vitest, Playwright, Cypress, Testing Library, Storybook",
+    icon: <Shield size={28} />,
+    title: "Security & Endpoint",
+    description: "SentinelOne EDR, WorkspaceOne UEM, VPN MFA — endpoint protection and compliance enforcement",
     span: "normal",
-    accent: "#15c213",
+    accent: "#a78bfa",
+  },
+  {
+    icon: <Zap size={28} />,
+    title: "Certifications",
+    description: "AWS CCP · ITIL v4 · CompTIA Network+ · Azure AI-900 · Cloud Computing Masterclass",
+    span: "normal",
+    accent: "#fbbf24",
   },
 ];
 
@@ -242,9 +225,9 @@ export default function Skills() {
             color: "var(--color-fg)",
           }}
         >
-          Tech I reach
+          Tools I use
           <br />
-          for <span style={{ color: "var(--color-accent)" }}>every day</span>
+          <span style={{ color: "var(--color-accent)" }}>every day</span>
         </motion.h2>
 
         <motion.p
@@ -260,8 +243,7 @@ export default function Skills() {
             lineHeight: 1.7,
           }}
         >
-          Opinionated stack. Pragmatic choices. I pick the right tool for the job —
-          not the fashionable one.
+          Battle-tested tools. Pragmatic choices. I use what keeps systems stable, secure, and observable.
         </motion.p>
       </div>
 

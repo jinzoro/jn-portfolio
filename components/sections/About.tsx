@@ -4,16 +4,16 @@ import { useEffect, useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 
 const skills = [
-  "React", "Next.js", "TypeScript", "Node.js", "GraphQL", "PostgreSQL",
-  "Figma", "Three.js", "AWS", "Docker", "Python", "Tailwind CSS",
-  "Framer Motion", "Redis", "Prisma", "Vercel", "WebGL", "GSAP",
+  "Linux", "Windows Server", "AWS", "Azure", "Alibaba Cloud", "Proxmox VE",
+  "Zabbix", "Grafana", "Nginx", "HAProxy", "Traefik", "PowerDNS",
+  "Keycloak", "Active Directory", "JIRA", "ServiceNow", "GitLab", "PowerShell",
 ];
 
 const stats = [
-  { value: 6, suffix: "+", label: "Years of experience" },
-  { value: 48, suffix: "+", label: "Projects shipped" },
-  { value: 12, suffix: "", label: "Happy clients" },
-  { value: 99, suffix: "%", label: "Satisfaction rate" },
+  { value: 7, suffix: "+", label: "Years of experience" },
+  { value: 4, suffix: "", label: "Companies" },
+  { value: 6, suffix: "+", label: "Certifications" },
+  { value: 3, suffix: "", label: "Cloud platforms" },
 ];
 
 function CountUp({ value, suffix }: { value: number; suffix: string }) {
@@ -45,10 +45,10 @@ function CountUp({ value, suffix }: { value: number; suffix: string }) {
 }
 
 const bioLines = [
-  "I'm a full-stack engineer with a designer's eye — someone who obsesses",
-  "over both the architecture of a system and the feel of an interaction.",
-  "I've shipped products used by millions, led design systems teams, and",
-  "helped early-stage startups find their visual identity.",
+  "I'm a Systems Engineer with 7+ years of experience in Linux,",
+  "cloud infrastructure (AWS, Azure, Alibaba Cloud), and enterprise IT.",
+  "I've built private cloud platforms, managed Active Directory for 1,000+ users,",
+  "and maintained critical infrastructure across international datacenters.",
 ];
 
 export default function About() {
@@ -160,11 +160,11 @@ export default function About() {
               marginBottom: 32,
             }}
           >
-            I build things
+            I keep systems
             <br />
-            <span style={{ color: "var(--color-accent)" }}>people love</span>
+            <span style={{ color: "var(--color-accent)" }}>running</span>
             <br />
-            to use.
+            at scale.
           </h2>
 
           {/* Bio lines — staggered reveal */}
