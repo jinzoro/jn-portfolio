@@ -62,6 +62,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
+      className="hero-dark"
       style={{
         position: "relative",
         width: "100%",
@@ -200,7 +201,7 @@ export default function Hero() {
                 gap: 10,
                 padding: "14px 32px",
                 background: "var(--color-accent)",
-                color: "var(--color-bg)",
+                color: "#060812",
                 borderRadius: 9999,
                 fontFamily: "var(--font-body)",
                 fontWeight: 500,

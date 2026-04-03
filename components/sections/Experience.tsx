@@ -332,7 +332,7 @@ export default function Experience() {
               right: 0,
               height: lineHeight,
               background:
-                "linear-gradient(to bottom, var(--color-accent), rgba(204,255,0,0.3))",
+                "linear-gradient(to bottom, var(--color-accent), rgba(0,113,227,0.2))",
             }}
           />
         </div>

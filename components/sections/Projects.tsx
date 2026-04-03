@@ -7,58 +7,63 @@ import { ArrowUpRight } from "lucide-react";
 const projects = [
   {
     id: 1,
-    title: "Luminary",
-    category: "SaaS / Finance",
-    year: "2024",
+    title: "CONVOTISCLOUD",
+    category: "Private Cloud Infrastructure",
+    year: "2024 — Present",
+    company: "CONVOTIS",
     description:
-      "An AI-powered financial dashboard that processes 50M+ transactions daily. Built with Next.js, Go microservices, and a real-time WebSocket layer.",
-    accent: "#ccff00",
-    tags: ["Next.js", "Go", "PostgreSQL", "WebSocket"],
-    bg: "linear-gradient(135deg, #0d1200 0%, #141a00 100%)",
+      "Designed and deployed CONVOTIS's proprietary cloud platform from the ground up — full ownership of Proxmox VE cluster architecture, Proxmox Backup Server (PBS) integration, GLPI asset management, and a complete monitoring stack with Zabbix and Grafana.",
+    accent: "#00d4ff",
+    tags: ["Proxmox VE", "PBS", "GLPI", "Zabbix", "Grafana", "Keycloak"],
+    bg: "linear-gradient(135deg, #030c18 0%, #051428 100%)",
   },
   {
     id: 2,
-    title: "Phantom",
-    category: "Design Tool",
+    title: "DE Datacenter",
+    category: "Infrastructure & Networking",
     year: "2024",
+    company: "CONVOTIS",
     description:
-      "A collaborative vector design tool with multiplayer cursors and conflict-free real-time sync using CRDTs.",
+      "Assisted in full datacenter deployment in Germany — capacity planning, high-availability Proxmox cluster segmentation by business function, and network architecture with HAProxy, Traefik, and PowerDNS.",
     accent: "#6366f1",
-    tags: ["React", "Rust", "CRDTs", "Canvas API"],
-    bg: "linear-gradient(135deg, #07071a 0%, #0d0d24 100%)",
+    tags: ["HAProxy", "Traefik", "PowerDNS", "Proxmox", "High Availability"],
+    bg: "linear-gradient(135deg, #09091f 0%, #0f0f30 100%)",
   },
   {
     id: 3,
-    title: "Atlas",
-    category: "Platform / Maps",
+    title: "Enterprise Identity",
+    category: "Identity & Access Management",
     year: "2023",
+    company: "LEYTON",
     description:
-      "Location intelligence platform powering 200+ enterprise clients with custom map overlays, geofencing, and predictive routing.",
-    accent: "#00d4ff",
-    tags: ["TypeScript", "MapboxGL", "Python", "Redis"],
-    bg: "linear-gradient(135deg, #001215 0%, #001a1f 100%)",
+      "Designed and implemented a centralized Active Directory system on Windows Server for 1,000+ users across the Casablanca site — Group Policy enforcement, security hardening, and VPN MFA integration.",
+    accent: "#3b82f6",
+    tags: ["Active Directory", "Windows Server", "Group Policy", "VPN MFA"],
+    bg: "linear-gradient(135deg, #040e20 0%, #061528 100%)",
   },
   {
     id: 4,
-    title: "Forma",
-    category: "E-Commerce",
+    title: "Endpoint Security",
+    category: "Security & UEM",
     year: "2023",
+    company: "LEYTON",
     description:
-      "High-conversion fashion storefront with a 3D product viewer, AR try-on, and a headless Shopify back-end.",
-    accent: "#ff6b35",
-    tags: ["Next.js", "Three.js", "Shopify", "Contentful"],
-    bg: "linear-gradient(135deg, #150800 0%, #1f0f00 100%)",
+      "Deployed SentinelOne EDR and VMware WorkspaceOne UEM across the organization, delivering unified endpoint visibility, policy enforcement, and automated threat response at scale.",
+    accent: "#10b981",
+    tags: ["SentinelOne", "WorkspaceOne", "VPN MFA", "Windows"],
+    bg: "linear-gradient(135deg, #021510 0%, #041f18 100%)",
   },
   {
     id: 5,
-    title: "Signal",
-    category: "Dev Tools / CLI",
-    year: "2022",
+    title: "MagicInfo Platform",
+    category: "Digital Signage",
+    year: "2023",
+    company: "LEYTON",
     description:
-      "Open-source observability CLI that aggregates logs from AWS, GCP, and Azure into a unified terminal UI.",
-    accent: "#a78bfa",
-    tags: ["Rust", "TUI", "AWS", "GCP"],
-    bg: "linear-gradient(135deg, #0a0715 0%, #110d1e 100%)",
+      "Managed the full deployment and integration of Samsung MagicInfo Server for digital signage across multiple office sites — content scheduling, device management, and network configuration.",
+    accent: "#f59e0b",
+    tags: ["MagicInfo", "Windows Server", "Network", "IT Management"],
+    bg: "linear-gradient(135deg, #1a0f00 0%, #251600 100%)",
   },
 ];
 
@@ -90,7 +95,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
         maxWidth: "clamp(300px, 36vw, 520px)",
         height: 440,
         borderRadius: 20,
-        border: `1px solid ${hovered ? project.accent + "30" : "var(--color-border)"}`,
+        border: `1px solid ${hovered ? project.accent + "40" : "rgba(255,255,255,0.08)"}`,
         overflow: "hidden",
         position: "relative",
         background: project.bg,
@@ -100,7 +105,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
         cursor: "none",
       }}
     >
-      {/* Background glow on hover */}
+      {/* Glow on hover */}
       <div
         style={{
           position: "absolute",
@@ -127,6 +132,32 @@ function ProjectCard({ project, index }: ProjectCardProps) {
         }}
       >
         {String(index + 1).padStart(2, "0")}
+      </div>
+
+      {/* Company badge */}
+      <div
+        style={{
+          position: "absolute",
+          top: 28,
+          left: 28,
+          padding: "4px 12px",
+          borderRadius: 9999,
+          border: `1px solid ${project.accent}30`,
+          background: `${project.accent}10`,
+        }}
+      >
+        <span
+          style={{
+            fontSize: "0.65rem",
+            color: project.accent,
+            fontFamily: "var(--font-body)",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            fontWeight: 600,
+          }}
+        >
+          {project.company}
+        </span>
       </div>
 
       {/* Content */}
@@ -174,7 +205,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
           <span
             style={{
               fontSize: "0.72rem",
-              color: "var(--color-fg-muted)",
+              color: "rgba(240,238,232,0.5)",
               fontFamily: "var(--font-body)",
               letterSpacing: "0.1em",
               textTransform: "uppercase",
@@ -185,7 +216,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
           <span
             style={{
               fontSize: "0.72rem",
-              color: "var(--color-fg-muted)",
+              color: "rgba(240,238,232,0.4)",
               fontFamily: "var(--font-body)",
             }}
           >
@@ -200,7 +231,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
             fontWeight: 700,
             fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
             letterSpacing: "-0.03em",
-            color: "var(--color-fg)",
+            color: "#f0eee8",
             lineHeight: 1.1,
             marginBottom: 12,
           }}
@@ -212,7 +243,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
         <div
           style={{
             overflow: "hidden",
-            maxHeight: hovered ? 120 : 0,
+            maxHeight: hovered ? 140 : 0,
             transition: "max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
@@ -222,7 +253,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
               fontWeight: 300,
               fontSize: "0.875rem",
               lineHeight: 1.65,
-              color: "var(--color-fg-muted)",
+              color: "rgba(240,238,232,0.65)",
               marginBottom: 16,
             }}
           >
@@ -232,7 +263,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
 
         {/* CTA */}
         <motion.div
-          animate={{ x: hovered ? 0 : -4, opacity: hovered ? 1 : 0.6 }}
+          animate={{ x: hovered ? 0 : -4, opacity: hovered ? 1 : 0.5 }}
           transition={{ duration: 0.25 }}
           style={{ display: "flex", alignItems: "center", gap: 6 }}
         >
@@ -245,7 +276,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
               letterSpacing: "0.04em",
             }}
           >
-            View Case Study
+            View Details
           </span>
           <motion.div animate={{ x: hovered ? 4 : 0 }} transition={{ duration: 0.25 }}>
             <ArrowUpRight size={15} color={project.accent} />
@@ -305,9 +336,7 @@ export default function Projects() {
               color: "var(--color-fg)",
             }}
           >
-            Projects that
-            <br />
-            <span style={{ color: "var(--color-accent)" }}>moved the needle</span>
+            <span style={{ color: "var(--color-accent)" }}>Projects</span>
           </motion.h2>
         </div>
 
@@ -325,7 +354,7 @@ export default function Projects() {
           }}
         >
           Drag to explore ← →
-          <br />A curated selection of work across startups and enterprise.
+          <br />Real infrastructure and systems work across companies.
         </motion.p>
       </div>
 
@@ -344,7 +373,6 @@ export default function Projects() {
         {projects.map((project, i) => (
           <ProjectCard key={project.id} project={project} index={i} />
         ))}
-        {/* End padding */}
         <div style={{ minWidth: 1, flexShrink: 0 }} />
       </motion.div>
     </section>

@@ -111,10 +111,10 @@ export default function Navbar() {
           alignItems: "center",
           justifyContent: "space-between",
           transition: "background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease",
-          background: scrolled ? "rgba(8,8,8,0.85)" : "transparent",
-          backdropFilter: scrolled ? "blur(24px)" : "none",
+          background: scrolled ? "rgba(242,244,248,0.88)" : "transparent",
+          backdropFilter: scrolled ? "blur(24px) saturate(180%)" : "none",
           borderBottom: scrolled
-            ? "1px solid rgba(240,238,232,0.06)"
+            ? "1px solid rgba(0,0,0,0.07)"
             : "1px solid transparent",
         }}
       >
@@ -127,12 +127,12 @@ export default function Navbar() {
             fontWeight: 700,
             fontSize: "1.1rem",
             letterSpacing: "-0.03em",
-            color: "var(--color-fg)",
+            color: scrolled ? "var(--color-fg)" : "#f0eee8",
             textDecoration: "none",
           }}
           data-cursor="pointer"
         >
-          IZ<span style={{ color: "var(--color-accent)" }}>.</span>
+          IZ<span style={{ color: scrolled ? "var(--color-accent)" : "#00d4ff" }}>.</span>
         </a>
 
         {/* Desktop links */}
@@ -154,10 +154,9 @@ export default function Navbar() {
                 padding: "6px 14px",
                 background: "transparent",
                 border: "none",
-                color:
-                  activeSection === link.href
-                    ? "var(--color-fg)"
-                    : "var(--color-fg-muted)",
+                color: scrolled
+                  ? (activeSection === link.href ? "var(--color-fg)" : "var(--color-fg-muted)")
+                  : (activeSection === link.href ? "#ffffff" : "rgba(240,238,232,0.65)"),
                 fontSize: "0.875rem",
                 fontFamily: "var(--font-body)",
                 fontWeight: 400,
@@ -225,7 +224,7 @@ export default function Navbar() {
             height: 40,
             background: "transparent",
             border: "none",
-            color: "var(--color-fg)",
+            color: scrolled ? "var(--color-fg)" : "#f0eee8",
           }}
           className="flex md:hidden"
           aria-label="Toggle menu"

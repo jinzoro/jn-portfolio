@@ -35,14 +35,14 @@ const cards: SkillCard[] = [
     icon: <Cloud size={28} />,
     title: "Cloud Platforms",
     description: "AWS, Azure, Alibaba Cloud — infrastructure provisioning, IAM, networking, and cost management",
-    span: "wide",
+    span: "normal",
     accent: "#ff9900",
   },
   {
     icon: <Cpu size={28} />,
     title: "Proxmox Virtualization",
     description: "Proxmox VE cluster design, Proxmox Backup Server (PBS), Mail Gateway, and Datacenter Manager — full lifecycle ownership",
-    span: "tall",
+    span: "normal",
     accent: "#e65800",
   },
   {
@@ -70,7 +70,7 @@ const cards: SkillCard[] = [
     icon: <Box size={28} />,
     title: "IT Service Management",
     description: "JIRA, ServiceNow, Zammad, Confluence, OpenProject, BookStack — ticket workflows and documentation",
-    span: "wide",
+    span: "normal",
     accent: "#3b82f6",
   },
   {
@@ -117,13 +117,13 @@ function Card({ card, index }: { card: SkillCard; index: number }) {
       data-cursor="pointer"
       className="card-glass"
       style={{
-        gridColumn: card.span === "wide" ? "span 2" : "span 1",
-        gridRow: card.span === "tall" ? "span 2" : "span 1",
+        gridColumn: "span 1",
+        gridRow: "span 1",
         padding: "clamp(20px, 2.5vw, 28px)",
         display: "flex",
         flexDirection: "column",
         gap: 14,
-        minHeight: card.span === "tall" ? 280 : 140,
+        minHeight: 180,
       }}
     >
       <div
@@ -168,15 +168,6 @@ function Card({ card, index }: { card: SkillCard; index: number }) {
         </p>
       </div>
 
-      {card.span === "tall" && (
-        <div
-          style={{
-            marginTop: "auto",
-            height: 1,
-            background: `linear-gradient(to right, ${card.accent ?? "var(--color-accent)"}40, transparent)`,
-          }}
-        />
-      )}
     </motion.div>
   );
 }

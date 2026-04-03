@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { Download } from "lucide-react";
+import Image from "next/image";
 
 const skills = [
   "Linux", "Windows Server", "AWS", "Azure", "Alibaba Cloud", "Proxmox VE",
@@ -10,7 +12,7 @@ const skills = [
 ];
 
 const stats = [
-  { value: 7, suffix: "+", label: "Years of experience" },
+  { value: 5, suffix: "+", label: "Years of experience" },
   { value: 4, suffix: "", label: "Companies" },
   { value: 6, suffix: "+", label: "Certifications" },
   { value: 3, suffix: "", label: "Cloud platforms" },
@@ -109,26 +111,15 @@ export default function About() {
               maxWidth: 480,
             }}
           >
-            <motion.div style={{ y: imageY, height: "112%" }}>
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  background:
-                    "linear-gradient(135deg, #111 0%, #1a1a1a 40%, #0f0f0f 100%)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--color-fg-muted)",
-                  fontSize: "0.8rem",
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                  fontFamily: "var(--font-body)",
-                }}
-              >
-                {/* Replace with next/image */}
-                <span>Your Photo Here</span>
-              </div>
+            <motion.div style={{ y: imageY, height: "112%", position: "relative" }}>
+              <Image
+                src="/images/avatar.jpg"
+                alt="Idriss Zabari"
+                fill
+                style={{ objectFit: "cover", objectPosition: "center top" }}
+                sizes="(max-width: 768px) 100vw, 480px"
+                priority
+              />
             </motion.div>
           </div>
 
@@ -199,7 +190,7 @@ export default function About() {
               display: "grid",
               gridTemplateColumns: "repeat(2, 1fr)",
               gap: 24,
-              marginBottom: 48,
+              marginBottom: 36,
             }}
           >
             {stats.map((stat, i) => (
@@ -239,6 +230,43 @@ export default function About() {
               </motion.div>
             ))}
           </div>
+
+          {/* Download CV */}
+          <motion.a
+            href="/resume.pdf"
+            download="Idriss-ZABARI-Resume.pdf"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.9 }}
+            data-cursor="pointer"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+              padding: "12px 28px",
+              background: "var(--color-accent)",
+              color: "#ffffff",
+              borderRadius: 9999,
+              fontFamily: "var(--font-body)",
+              fontWeight: 500,
+              fontSize: "0.875rem",
+              textDecoration: "none",
+              letterSpacing: "0.01em",
+              boxShadow: "0 4px 16px rgba(0,113,227,0.3)",
+              transition: "box-shadow 0.25s ease, transform 0.25s ease",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
+              (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(0,113,227,0.4)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+              (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 16px rgba(0,113,227,0.3)";
+            }}
+          >
+            <Download size={16} />
+            Download Resume
+          </motion.a>
         </div>
       </div>
 

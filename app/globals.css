@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors */
-  --color-bg: #080808;
-  --color-bg-soft: #0f0f0f;
-  --color-bg-card: #111111;
-  --color-fg: #f0eee8;
-  --color-fg-muted: #8a8880;
-  --color-accent: #00d4ff;
-  --color-accent-dim: rgba(0, 212, 255, 0.12);
-  --color-border: rgba(240, 238, 232, 0.08);
+  /* Colors — light glass theme */
+  --color-bg: #f2f4f8;
+  --color-bg-soft: #f8f9fc;
+  --color-bg-card: rgba(255, 255, 255, 0.65);
+  --color-fg: #111827;
+  --color-fg-muted: #6b7280;
+  --color-accent: #0071e3;
+  --color-accent-dim: rgba(0, 113, 227, 0.1);
+  --color-border: rgba(0, 0, 0, 0.08);
 
   /* Fonts */
   --font-display: var(--font-syne), sans-serif;
@@ -19,7 +19,7 @@
   --spacing-section: 120px;
 
   /* Border radius */
-  --radius-card: 16px;
+  --radius-card: 20px;
   --radius-pill: 9999px;
 
   /* Transitions */
@@ -37,7 +37,7 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -46,6 +46,10 @@ html {
 
 body {
   background-color: var(--color-bg);
+  background-image:
+    radial-gradient(ellipse at 15% 20%, rgba(0, 113, 227, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba(0, 212, 255, 0.05) 0%, transparent 55%);
+  background-attachment: fixed;
   color: var(--color-fg);
   font-family: var(--font-body);
   overflow-x: hidden;
@@ -55,6 +59,16 @@ body {
 /* Hide default cursor globally — custom cursor takes over */
 * {
   cursor: none !important;
+}
+
+/* ─── Hero dark island ──────────────────────────────── */
+/* Hero section keeps its own dark context */
+.hero-dark {
+  --color-fg: #f0eee8;
+  --color-fg-muted: #8a8880;
+  --color-border: rgba(240, 238, 232, 0.1);
+  --color-accent: #00d4ff;
+  background: linear-gradient(135deg, #060812 0%, #080a18 100%);
 }
 
 /* ─── Typography ────────────────────────────────────── */
@@ -67,7 +81,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ─── Selection ─────────────────────────────────────── */
 ::selection {
   background: var(--color-accent);
-  color: var(--color-bg);
+  color: #ffffff;
 }
 
 /* ─── Scrollbar ──────────────────────────────────────── */
@@ -78,11 +92,11 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
+  background: rgba(0, 0, 0, 0.15);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-fg-muted);
+  background: rgba(0, 0, 0, 0.28);
 }
 
 /* ─── Grain overlay ─────────────────────────────────── */
@@ -93,7 +107,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 400%;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.035;
+  opacity: 0.018;
   animation: grain 8s steps(10) infinite;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 256px 256px;
@@ -151,21 +165,23 @@ h1, h2, h3, h4, h5, h6 {
 .float-label-group input,
 .float-label-group textarea {
   width: 100%;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.6);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 20px 16px 8px;
   color: var(--color-fg);
   font-family: var(--font-body);
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.25s var(--ease-smooth);
+  transition: border-color 0.25s var(--ease-smooth), box-shadow 0.25s var(--ease-smooth);
   resize: none;
+  backdrop-filter: blur(8px);
 }
 
 .float-label-group input:focus,
 .float-label-group textarea:focus {
   border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
 }
 
 .float-label-group label {
@@ -196,12 +212,6 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
 }
 
-/* ─── Timeline SVG line ─────────────────────────────── */
-.timeline-line {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-}
-
 /* ─── Utility classes ───────────────────────────────── */
 .section-tag {
   display: inline-flex;
@@ -222,11 +232,14 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--color-accent);
 }
 
+/* ─── Glass card (iOS 26 style) ─────────────────────── */
 .card-glass {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: var(--radius-card);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 /* ─── Experience timeline responsive ────────────────── */

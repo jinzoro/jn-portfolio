@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Github, Twitter, Linkedin, Copy, Check, ArrowUpRight } from "lucide-react";
 
-const EMAIL = "hello@yourname.dev";
+const EMAIL = "izabari.pro@gmail.com";
 
 const socials = [
   { icon: <Github size={20} />, label: "GitHub", href: "https://github.com/yourhandle" },
@@ -89,7 +89,7 @@ export default function Contact() {
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(ellipse 70% 60% at 30% 50%, rgba(204,255,0,0.035) 0%, transparent 65%)",
+            "radial-gradient(ellipse 70% 60% at 30% 50%, rgba(0,113,227,0.06) 0%, transparent 65%)",
           pointerEvents: "none",
         }}
       />
@@ -428,9 +428,9 @@ export default function Contact() {
                     padding: "16px 32px",
                     background:
                       formState === "loading"
-                        ? "rgba(204,255,0,0.5)"
+                        ? "rgba(0,113,227,0.5)"
                         : "var(--color-accent)",
-                    color: "var(--color-bg)",
+                    color: "#ffffff",
                     border: "none",
                     borderRadius: 9999,
                     fontFamily: "var(--font-body)",
