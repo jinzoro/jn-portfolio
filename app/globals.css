@@ -1,54 +1,50 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors — light glass theme */
-  --color-bg: #f2f4f8;
-  --color-bg-soft: #f8f9fc;
-  --color-bg-card: rgba(255, 255, 255, 0.65);
-  --color-fg: #111827;
-  --color-fg-muted: #6b7280;
-  --color-accent: #0071e3;
-  --color-accent-dim: rgba(0, 113, 227, 0.1);
-  --color-border: rgba(0, 0, 0, 0.08);
+  /* ── macOS / iOS 26 glass palette ── */
+  --color-bg: #09090f;
+  --color-bg-soft: #0e1024;
+  --color-bg-card: rgba(255, 255, 255, 0.06);
+  --color-fg: #e8e8f0;
+  --color-fg-muted: rgba(232, 232, 240, 0.45);
+  --color-accent: #0a84ff;
+  --color-accent-dim: rgba(10, 132, 255, 0.15);
+  --color-border: rgba(255, 255, 255, 0.1);
 
-  /* Fonts */
   --font-display: var(--font-syne), sans-serif;
   --font-body: var(--font-dm-sans), sans-serif;
 
-  /* Spacing */
   --spacing-section: 120px;
-
-  /* Border radius */
   --radius-card: 20px;
   --radius-pill: 9999px;
 
-  /* Transitions */
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ─── Base ─────────────────────────────────────────── */
-*,
-*::before,
-*::after {
+/* ─── Reset ─────────────────────────────────────────── */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 html {
-  color-scheme: light;
+  color-scheme: dark;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
+/* ─── macOS mesh-gradient base ──────────────────────── */
 body {
-  background-color: var(--color-bg);
+  background-color: #09090f;
   background-image:
-    radial-gradient(ellipse at 15% 20%, rgba(0, 113, 227, 0.07) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 75%, rgba(0, 212, 255, 0.05) 0%, transparent 55%);
+    radial-gradient(ellipse 70% 55% at 8% 12%,  rgba(100, 60, 255, 0.28) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 45% at 88% 8%,  rgba(0, 120, 255, 0.22)  0%, transparent 45%),
+    radial-gradient(ellipse 50% 55% at 65% 92%, rgba(0, 180, 200, 0.18)  0%, transparent 50%),
+    radial-gradient(ellipse 40% 40% at 28% 85%, rgba(80, 0, 200, 0.14)   0%, transparent 45%);
   background-attachment: fixed;
   color: var(--color-fg);
   font-family: var(--font-body);
@@ -56,20 +52,7 @@ body {
   cursor: none;
 }
 
-/* Hide default cursor globally — custom cursor takes over */
-* {
-  cursor: none !important;
-}
-
-/* ─── Hero dark island ──────────────────────────────── */
-/* Hero section keeps its own dark context */
-.hero-dark {
-  --color-fg: #f0eee8;
-  --color-fg-muted: #8a8880;
-  --color-border: rgba(240, 238, 232, 0.1);
-  --color-accent: #00d4ff;
-  background: linear-gradient(135deg, #060812 0%, #080a18 100%);
-}
+* { cursor: none !important; }
 
 /* ─── Typography ────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
@@ -81,25 +64,19 @@ h1, h2, h3, h4, h5, h6 {
 /* ─── Selection ─────────────────────────────────────── */
 ::selection {
   background: var(--color-accent);
-  color: #ffffff;
+  color: #fff;
 }
 
 /* ─── Scrollbar ──────────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-bg);
-}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(255,255,255,0.12);
   border-radius: 3px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.28);
-}
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
 
-/* ─── Grain overlay ─────────────────────────────────── */
+/* ─── Grain ─────────────────────────────────────────── */
 .grain {
   position: fixed;
   inset: -200%;
@@ -107,23 +84,17 @@ h1, h2, h3, h4, h5, h6 {
   height: 400%;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.018;
+  opacity: 0.025;
   animation: grain 8s steps(10) infinite;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 256px 256px;
 }
-
 @keyframes grain {
-  0%, 100% { transform: translate(0, 0); }
-  10%       { transform: translate(-2%, -3%); }
-  20%       { transform: translate(3%, 1%); }
-  30%       { transform: translate(-1%, 4%); }
-  40%       { transform: translate(2%, -2%); }
-  50%       { transform: translate(-3%, 2%); }
-  60%       { transform: translate(1%, -4%); }
-  70%       { transform: translate(-2%, 3%); }
-  80%       { transform: translate(4%, -1%); }
-  90%       { transform: translate(-1%, 2%); }
+  0%,100% { transform: translate(0,0); }    10% { transform: translate(-2%,-3%); }
+  20% { transform: translate(3%,1%); }      30% { transform: translate(-1%,4%); }
+  40% { transform: translate(2%,-2%); }     50% { transform: translate(-3%,2%); }
+  60% { transform: translate(1%,-4%); }     70% { transform: translate(-2%,3%); }
+  80% { transform: translate(4%,-1%); }     90% { transform: translate(-1%,2%); }
 }
 
 /* ─── Marquee ───────────────────────────────────────── */
@@ -132,11 +103,7 @@ h1, h2, h3, h4, h5, h6 {
   width: max-content;
   animation: marquee 30s linear infinite;
 }
-
-.marquee-track:hover {
-  animation-play-state: paused;
-}
-
+.marquee-track:hover { animation-play-state: paused; }
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -152,20 +119,15 @@ h1, h2, h3, h4, h5, h6 {
   scrollbar-width: none;
   padding-bottom: 4px;
 }
+.horizontal-scroll::-webkit-scrollbar { display: none; }
 
-.horizontal-scroll::-webkit-scrollbar {
-  display: none;
-}
-
-/* ─── Floating label ────────────────────────────────── */
-.float-label-group {
-  position: relative;
-}
+/* ─── Floating label form ───────────────────────────── */
+.float-label-group { position: relative; }
 
 .float-label-group input,
 .float-label-group textarea {
   width: 100%;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 20px 16px 8px;
@@ -173,17 +135,15 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-body);
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.25s var(--ease-smooth), box-shadow 0.25s var(--ease-smooth);
+  transition: border-color 0.25s, box-shadow 0.25s;
   resize: none;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
 }
-
 .float-label-group input:focus,
 .float-label-group textarea:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
+  box-shadow: 0 0 0 3px rgba(10,132,255,0.15);
 }
-
 .float-label-group label {
   position: absolute;
   left: 16px;
@@ -194,12 +154,7 @@ h1, h2, h3, h4, h5, h6 {
   pointer-events: none;
   transition: all 0.2s var(--ease-smooth);
 }
-
-.float-label-group textarea ~ label {
-  top: 20px;
-  transform: none;
-}
-
+.float-label-group textarea ~ label { top: 20px; transform: none; }
 .float-label-group input:focus ~ label,
 .float-label-group input:not(:placeholder-shown) ~ label,
 .float-label-group textarea:focus ~ label,
@@ -212,7 +167,7 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
 }
 
-/* ─── Utility classes ───────────────────────────────── */
+/* ─── Utility ───────────────────────────────────────── */
 .section-tag {
   display: inline-flex;
   align-items: center;
@@ -223,7 +178,6 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
   color: var(--color-accent);
 }
-
 .section-tag::before {
   content: "";
   display: block;
@@ -232,47 +186,38 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--color-accent);
 }
 
-/* ─── Glass card (iOS 26 style) ─────────────────────── */
+/* ─── Glass card — true macOS frosted glass ─────────── */
 .card-glass {
-  background: rgba(255, 255, 255, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.11);
   border-radius: var(--radius-card);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08);
 }
 
-/* ─── Experience timeline responsive ────────────────── */
+/* ─── Experience timeline ───────────────────────────── */
 .timeline-card-grid {
   display: grid;
   grid-template-columns: 1fr 48px 1fr;
   gap: 0;
   position: relative;
 }
-
 @media (max-width: 768px) {
-  .timeline-card-grid {
-    display: flex;
-    flex-direction: column;
-  }
+  .timeline-card-grid { display: flex; flex-direction: column; }
   .timeline-center-col { display: none; }
-  .timeline-left-col,
-  .timeline-right-col {
-    padding: 0 !important;
-  }
+  .timeline-left-col, .timeline-right-col { padding: 0 !important; }
   .timeline-empty-col { display: none; }
   .timeline-line-wrapper { display: none; }
 }
 
-/* ─── Touch devices — restore native cursor ─────────── */
-@media (hover: none) {
-  * { cursor: auto !important; }
-}
+/* ─── Touch: restore native cursor ──────────────────── */
+@media (hover: none) { * { cursor: auto !important; } }
 
-/* ─── General mobile tweaks ─────────────────────────── */
+/* ─── Mobile tweaks ─────────────────────────────────── */
 @media (max-width: 640px) {
-  .hero-cta {
-    flex-direction: column;
-    align-items: flex-start !important;
-  }
+  .hero-cta { flex-direction: column; align-items: flex-start !important; }
 }

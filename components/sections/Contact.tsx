@@ -89,7 +89,7 @@ export default function Contact() {
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(ellipse 70% 60% at 30% 50%, rgba(0,113,227,0.06) 0%, transparent 65%)",
+            "radial-gradient(ellipse 70% 60% at 30% 50%, rgba(10,132,255,0.07) 0%, transparent 65%)",
           pointerEvents: "none",
         }}
       />

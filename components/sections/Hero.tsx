@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { motion, stagger, useAnimate } from "framer-motion";
 import { ArrowDown } from "lucide-react";
@@ -13,15 +13,6 @@ const HeroScene = dynamic(() => import("@/components/three/HeroScene"), {
 
 const headline = ["Cloud", "Infrastructure", "Engineer."];
 
-const charVariants = {
-  hidden: { opacity: 0, y: 80 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-  },
-};
-
 export default function Hero() {
   const [scope, animate] = useAnimate();
 
@@ -30,22 +21,10 @@ export default function Hero() {
       await animate(
         ".char",
         { opacity: 1, y: 0 },
-        {
-          duration: 0.6,
-          ease: [0.16, 1, 0.3, 1],
-          delay: stagger(0.04),
-        }
+        { duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: stagger(0.04) }
       );
-      await animate(
-        ".hero-sub",
-        { opacity: 1, y: 0 },
-        { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
-      );
-      await animate(
-        ".hero-cta",
-        { opacity: 1, y: 0 },
-        { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
-      );
+      await animate(".hero-sub", { opacity: 1, y: 0 }, { duration: 0.6, ease: [0.16, 1, 0.3, 1] });
+      await animate(".hero-cta", { opacity: 1, y: 0 }, { duration: 0.5, ease: [0.16, 1, 0.3, 1] });
     };
     sequence();
   }, [animate]);
@@ -62,7 +41,6 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="hero-dark"
       style={{
         position: "relative",
         width: "100%",
@@ -73,61 +51,46 @@ export default function Hero() {
         alignItems: "flex-start",
         padding: "0 clamp(24px, 6vw, 96px)",
         overflow: "hidden",
+        background: "linear-gradient(135deg, #04050e 0%, #070918 100%)",
       }}
     >
       {/* Three.js background */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-          opacity: 0.85,
-        }}
-      >
+      <div style={{ position: "absolute", inset: 0, zIndex: 0, opacity: 0.9 }}>
         <HeroScene />
       </div>
 
-      {/* Gradient vignette */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 1,
-          background:
-            "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, rgba(8,8,8,0.75) 100%)",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 1,
-          background:
-            "linear-gradient(to right, rgba(8,8,8,0.6) 0%, transparent 60%)",
-        }}
-      />
+      {/* Vignettes */}
+      <div style={{
+        position: "absolute", inset: 0, zIndex: 1,
+        background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, rgba(4,5,14,0.8) 100%)",
+      }} />
+      <div style={{
+        position: "absolute", inset: 0, zIndex: 1,
+        background: "linear-gradient(to right, rgba(4,5,14,0.65) 0%, transparent 65%)",
+      }} />
 
       {/* Content */}
-      <div ref={scope} style={{ position: "relative", zIndex: 2, maxWidth: 900 }}>
-        {/* Tag */}
+      <div ref={scope} style={{ position: "relative", zIndex: 2, maxWidth: 960 }}>
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
           style={{ marginBottom: 32 }}
         >
-          <span className="section-tag">Available for work</span>
+          <span className="section-tag" style={{ color: "#00d4ff" }}>
+            Available for work
+          </span>
         </motion.div>
 
-        {/* Split headline */}
+        {/* Headline — whiteSpace nowrap prevents mid-word wrapping */}
         <h1
           style={{
             fontFamily: "var(--font-display)",
             fontWeight: 800,
-            fontSize: "clamp(2rem, 5.5vw, 5.5rem)",
+            fontSize: "clamp(1.8rem, 5vw, 5rem)",
             letterSpacing: "-0.03em",
-            lineHeight: 1,
-            color: "var(--color-fg)",
+            lineHeight: 1.1,
+            color: "#e8e8f0",
             marginBottom: 32,
           }}
         >
@@ -136,8 +99,9 @@ export default function Hero() {
               key={wi}
               style={{
                 display: "inline-block",
-                marginRight: "0.25em",
+                marginRight: "0.22em",
                 overflow: "hidden",
+                whiteSpace: "nowrap",
               }}
             >
               {word.split("").map((char, ci) => (
@@ -148,7 +112,7 @@ export default function Hero() {
                     display: "inline-block",
                     opacity: 0,
                     transform: "translateY(80px)",
-                    color: wi === 1 ? "var(--color-accent)" : "var(--color-fg)",
+                    color: wi === 1 ? "#00d4ff" : "#e8e8f0",
                   }}
                 >
                   {char}
@@ -165,73 +129,52 @@ export default function Hero() {
             style={{
               fontFamily: "var(--font-body)",
               fontWeight: 300,
-              fontSize: "clamp(1rem, 2vw, 1.25rem)",
-              color: "var(--color-fg-muted)",
+              fontSize: "clamp(0.95rem, 1.8vw, 1.15rem)",
+              color: "rgba(232,232,240,0.55)",
               letterSpacing: "0.01em",
-              lineHeight: 1.6,
-              maxWidth: 540,
+              lineHeight: 1.65,
+              maxWidth: 520,
               opacity: 0,
               transform: "translateY(20px)",
             }}
           >
             Systems Engineer specializing in Linux, cloud platforms (AWS, Azure,
-            Alibaba), and virtualization infrastructure. I build resilient systems that scale.
+            Alibaba), and virtualization. Building resilient infrastructure at scale.
           </p>
         </div>
 
-        {/* CTA row */}
+        {/* CTAs */}
         <div
           className="hero-cta"
-          style={{
-            display: "flex",
-            gap: 16,
-            alignItems: "center",
-            opacity: 0,
-            transform: "translateY(20px)",
-          }}
+          style={{ display: "flex", gap: 16, alignItems: "center", opacity: 0, transform: "translateY(20px)" }}
         >
-          <MagneticButton
-            onClick={scrollToWork}
-            className="magnetic-cta"
-          >
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 10,
-                padding: "14px 32px",
-                background: "var(--color-accent)",
-                color: "#060812",
-                borderRadius: 9999,
-                fontFamily: "var(--font-body)",
-                fontWeight: 500,
-                fontSize: "0.9rem",
-                letterSpacing: "0.02em",
-                transition: "transform 0.2s ease",
-              }}
-            >
-              View My Work
-              <ArrowDown size={16} />
+          <MagneticButton onClick={scrollToWork}>
+            <span style={{
+              display: "inline-flex", alignItems: "center", gap: 10,
+              padding: "14px 32px",
+              background: "#0a84ff",
+              color: "#ffffff",
+              borderRadius: 9999,
+              fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "0.9rem",
+              letterSpacing: "0.02em",
+              boxShadow: "0 4px 20px rgba(10,132,255,0.4)",
+            }}>
+              View My Work <ArrowDown size={16} />
             </span>
           </MagneticButton>
 
           <MagneticButton href="#contact">
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 10,
-                padding: "14px 32px",
-                background: "transparent",
-                color: "var(--color-fg)",
-                border: "1px solid var(--color-border)",
-                borderRadius: 9999,
-                fontFamily: "var(--font-body)",
-                fontWeight: 400,
-                fontSize: "0.9rem",
-                letterSpacing: "0.02em",
-              }}
-            >
+            <span style={{
+              display: "inline-flex", alignItems: "center", gap: 10,
+              padding: "14px 32px",
+              background: "rgba(255,255,255,0.07)",
+              color: "#e8e8f0",
+              border: "1px solid rgba(255,255,255,0.12)",
+              borderRadius: 9999,
+              fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.9rem",
+              letterSpacing: "0.02em",
+              backdropFilter: "blur(12px)",
+            }}>
               Let&apos;s Talk
             </span>
           </MagneticButton>
@@ -242,40 +185,26 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 0.8 }}
+        transition={{ delay: 2.2, duration: 0.8 }}
         style={{
-          position: "absolute",
-          bottom: 40,
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 2,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 8,
+          position: "absolute", bottom: 40, left: "50%",
+          transform: "translateX(-50%)", zIndex: 2,
+          display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
         }}
       >
         <motion.div
           animate={{ scaleY: [0, 1, 0], y: [0, 16, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           style={{
-            width: 1,
-            height: 48,
-            background:
-              "linear-gradient(to bottom, var(--color-accent), transparent)",
+            width: 1, height: 48,
+            background: "linear-gradient(to bottom, #00d4ff, transparent)",
             transformOrigin: "top",
           }}
         />
-        <span
-          style={{
-            fontSize: "0.65rem",
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "var(--color-fg-muted)",
-          }}
-        >
-          Scroll
-        </span>
+        <span style={{
+          fontSize: "0.6rem", letterSpacing: "0.22em", textTransform: "uppercase",
+          color: "rgba(232,232,240,0.35)",
+        }}>Scroll</span>
       </motion.div>
     </section>
   );

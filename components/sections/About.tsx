@@ -252,12 +252,12 @@ export default function About() {
               fontSize: "0.875rem",
               textDecoration: "none",
               letterSpacing: "0.01em",
-              boxShadow: "0 4px 16px rgba(0,113,227,0.3)",
+              boxShadow: "0 4px 16px rgba(10,132,255,0.35)",
               transition: "box-shadow 0.25s ease, transform 0.25s ease",
             }}
             onMouseEnter={(e) => {
               (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
-              (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(0,113,227,0.4)";
+              (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(10,132,255,0.45)";
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLElement).style.transform = "translateY(0)";

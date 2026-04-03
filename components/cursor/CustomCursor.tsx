@@ -4,50 +4,39 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
-  const [isHovering, setIsHovering] = useState(false);
   const [isPointer, setIsPointer] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  const springConfig = { stiffness: 800, damping: 50, mass: 0.1 };
-  const ringConfig = { stiffness: 800, damping: 50, mass: 0.1 };
+  // Dot: essentially instant
+  const dotX = useSpring(cursorX, { stiffness: 2000, damping: 100, mass: 0.05 });
+  const dotY = useSpring(cursorY, { stiffness: 2000, damping: 100, mass: 0.05 });
 
-  const dotX = useSpring(cursorX, springConfig);
-  const dotY = useSpring(cursorY, springConfig);
-  const ringX = useSpring(cursorX, ringConfig);
-  const ringY = useSpring(cursorY, ringConfig);
+  // Ring: very slight trail for polish — still fast
+  const ringX = useSpring(cursorX, { stiffness: 800, damping: 60, mass: 0.08 });
+  const ringY = useSpring(cursorY, { stiffness: 800, damping: 60, mass: 0.08 });
 
   const frameRef = useRef<number>(0);
-  const rawX = useRef(-100);
-  const rawY = useRef(-100);
 
   useEffect(() => {
+    // Set position directly in mousemove — no rAF loop delay
     const move = (e: MouseEvent) => {
-      rawX.current = e.clientX;
-      rawY.current = e.clientY;
-    };
-
-    const tick = () => {
-      cursorX.set(rawX.current);
-      cursorY.set(rawY.current);
-      frameRef.current = requestAnimationFrame(tick);
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
     };
 
     const detectHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const hoverable =
-        target.closest("a") ||
-        target.closest("button") ||
-        target.closest("[data-cursor='pointer']");
-      setIsPointer(!!hoverable);
+      setIsPointer(
+        !!(target.closest("a") || target.closest("button") || target.closest("[data-cursor='pointer']"))
+      );
     };
 
     const onLeave = () => setIsHidden(true);
     const onEnter = () => setIsHidden(false);
 
-    frameRef.current = requestAnimationFrame(tick);
     window.addEventListener("mousemove", move, { passive: true });
     window.addEventListener("mousemove", detectHover, { passive: true });
     document.documentElement.addEventListener("mouseleave", onLeave);
@@ -74,22 +63,12 @@ export default function CustomCursor() {
           pointerEvents: "none",
           translateX: "-50%",
           translateY: "-50%",
+          mixBlendMode: "difference",
         }}
-        animate={{
-          opacity: isHidden ? 0 : 1,
-          scale: isPointer ? 0 : 1,
-        }}
-        transition={{ duration: 0.15 }}
+        animate={{ opacity: isHidden ? 0 : 1, scale: isPointer ? 0 : 1 }}
+        transition={{ duration: 0.12 }}
       >
-        <div
-          style={{
-            width: 6,
-            height: 6,
-            borderRadius: "50%",
-            background: "#0071e3",
-            mixBlendMode: "exclusion",
-          }}
-        />
+        <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#ffffff" }} />
       </motion.div>
 
       {/* Ring */}
@@ -102,26 +81,21 @@ export default function CustomCursor() {
           pointerEvents: "none",
           translateX: "-50%",
           translateY: "-50%",
+          mixBlendMode: "difference",
         }}
         animate={{
           opacity: isHidden ? 0 : 1,
-          scale: isPointer ? 1.8 : 1,
-          backgroundColor: isPointer
-            ? "rgba(0,113,227,0.1)"
-            : "transparent",
+          scale: isPointer ? 1.7 : 1,
         }}
-        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
       >
         <div
           style={{
-            width: 36,
-            height: 36,
+            width: 34,
+            height: 34,
             borderRadius: "50%",
-            border: "1.5px solid rgba(0,113,227,0.7)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            mixBlendMode: "exclusion",
+            border: "1.5px solid rgba(255,255,255,0.8)",
+            background: isPointer ? "rgba(255,255,255,0.06)" : "transparent",
           }}
         />
       </motion.div>
